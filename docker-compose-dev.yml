@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  redis:
+    container_name: redis
+    image: 'redis:alpine'
+    command: redis-server --requirepass jjsja7123jdasdkk21238882jjejq
+    restart: always
+    expose:
+      - 6379
+    ports:
+      - "6377:6379"
+    hostname: redis
+
+  scheduling:
+    container_name: scheduling
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+#    depends_on:
+#      - redis
+    volumes:
+      - ./static:/app/static
